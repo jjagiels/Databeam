@@ -6,6 +6,7 @@
 package databeam;
 
 import java.util.Scanner;
+import java.sql.*;
 
 /**
  *
@@ -16,6 +17,16 @@ public class InitialFormGUI extends javax.swing.JFrame {
     /**
      * Creates new form InitialFormGUI
      */
+    private static final String JDBC_DRIVER = "com.mysql.jdbc.Driver";
+    private static final String DB_URL = "jdbc:mysql://108.52.101.66:3306/databeam";
+
+    //Database Credentials
+    private static final String USER = "sDesign2017";
+    private static final String PASS = "DatabeamDatabase2017";
+    
+    static Connection conn = null;
+    Statement stmt = null;
+
     public InitialFormGUI() {
         initComponents();
     }
@@ -119,12 +130,18 @@ public class InitialFormGUI extends javax.swing.JFrame {
     private void acceptButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_acceptButtonActionPerformed
 
         
-        String nameEntry = firstNameField.getText() +" " + middleNameField.getText() + " " + lastNameField.getText();
+        String nameEntry ="'" + firstNameField.getText() +"'" + "," + " " + "'" + middleNameField.getText() +"'" + "," + " " + "'" + lastNameField.getText() + "'";
+        //nameEntry = 'firstname', 'middlename', 'lastname';
         
         Scanner nameScan = new Scanner(nameEntry);
         tempNameEchoLabel.setText(nameScan.next() + " " + nameScan.next() + " " + nameScan.next());
-        
         nameScan.close();
+        try{
+        stmt = conn.createStatement();
+        stmt.executeUpdate("INSERT INTO names (firstname, middlename, lastname) value(" + nameEntry + ")");
+        }catch(SQLException se){
+            se.printStackTrace();
+        }
     }//GEN-LAST:event_acceptButtonActionPerformed
 
     private void firstNameFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_firstNameFieldActionPerformed
@@ -162,12 +179,26 @@ public class InitialFormGUI extends javax.swing.JFrame {
         }
         //</editor-fold>
 
+        /* Prep the Database connection */
+        try{
+            Class.forName("com.mysql.jdbc.Driver");
+            conn = DriverManager.getConnection(DB_URL,USER,PASS);
+        } catch(SQLException se){
+        //Handle JDBC Errors
+        se.printStackTrace();
+        }catch(Exception e){
+              //Handle errors for Class.forName
+              e.printStackTrace();
+        }
+    
+        
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new InitialFormGUI().setVisible(true);
             }
         });
+
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
