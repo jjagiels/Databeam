@@ -3,10 +3,15 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.sdesign2017.databeam_main;
+package databeam_main;
 
-import java.util.Scanner;
+import java.util.*;
 import java.sql.*;
+import acr122u.*;
+import javax.smartcardio.*;
+import java.io.UnsupportedEncodingException;
+import java.io.ByteArrayOutputStream;
+import utils.*;
 
 /**
  *
@@ -29,9 +34,17 @@ public class InitialFormGUI extends javax.swing.JFrame {
     
     static Connection conn = null;
     Statement stmt = null;
+    /**
+     * Declare the variable 'name.' This variable will contain the values
+     * the user entered into the "Name" section of the form in the order
+     * 'first,' 'middle,' and 'last.' This list will be space-delimited.
+     */
+    String name = "";
 
     public InitialFormGUI() {
         initComponents();
+        /*Fill in the form fields from the NFC*/
+        setFields();
     }
 
     /**
@@ -156,6 +169,60 @@ public class InitialFormGUI extends javax.swing.JFrame {
     }//GEN-LAST:event_acceptButtonKeyPressed
 
     /**
+     * This method connects to a reader, waits for a card, then reads from that 
+     * card to prep auto form-filling
+     */
+    
+    private static void readNFC() throws CardException, UnsupportedEncodingException {
+        // show the list of available terminals
+        TerminalFactory factory = TerminalFactory.getDefault();
+        //List<CardTerminal> terminals = factory.terminals().list();
+        CardTerminals terminals = factory.terminals();
+        
+        List<CardTerminal> tempForPrint = terminals.list();
+        System.out.println("Terminals: " + tempForPrint.get(0));
+        System.out.println("Place phone/card on reader to start");
+        
+        Card card = connectNFC.waitForCard(terminals);
+        card.beginExclusive();
+        
+        System.out.println("card: " + card);  
+        CardChannel channel = card.getBasicChannel();
+        ResponseAPDU r = channel.transmit(new CommandAPDU(cAPDU.selectTestJavaApplet));
+        System.out.println("response: " + r);
+        System.out.println(hex.bytesToHex(r.getBytes()));
+        System.out.println(hex.convertHexToString(hex.bytesToHex(r.getBytes())));
+        
+        byte[] byteMessage = r.getBytes();
+        
+        System.out.println(Arrays.toString(byteMessage));
+        
+        
+        /**
+         * This section will request the test hello from the smartcard applet
+         */
+        r= channel.transmit(new CommandAPDU(cAPDU.testHello));
+        byteMessage = r.getBytes();
+        System.out.println("response: " + r);
+        System.out.println(Arrays.toString(byteMessage));
+        System.out.println(hex.bytesToHex(byteMessage));
+        System.out.println(hex.convertHexToString(hex.bytesToHex(byteMessage))); //Right here is where the byte response is converted to a string.
+        
+        
+        card.disconnect(false);
+    }
+    /**
+     * setFields() will use all the strings gathered from readNFC() and fill in 
+     * the relevant fields for reading within the UI.
+     */
+    private void setFields(){
+        Scanner nameScan = new Scanner(name);
+        firstNameField.setText(nameScan.next());
+        middleNameField.setText(nameScan.next());
+        lastNameField.setText(nameScan.next());
+    }
+    
+    /**
      * @param args the command line arguments
      */
     public static void main(String args[]) {
@@ -193,8 +260,17 @@ public class InitialFormGUI extends javax.swing.JFrame {
               //Handle errors for Class.forName
               e.printStackTrace();
         }
-    
         
+        /*Open the NFC device connection*/
+        try{
+        readNFC();
+        } catch(CardException ce){
+            ce.printStackTrace();
+        } catch(UnsupportedEncodingException uce){
+            uce.printStackTrace();
+        }
+        
+
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
