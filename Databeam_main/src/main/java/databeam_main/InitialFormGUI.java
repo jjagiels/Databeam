@@ -42,6 +42,15 @@ public class InitialFormGUI extends javax.swing.JFrame {
     String name = "";
 
     public InitialFormGUI() {
+        /*Open the NFC device connection*/
+        try{
+        readNFC();
+        } catch(CardException ce){
+            ce.printStackTrace();
+        } catch(UnsupportedEncodingException uce){
+            uce.printStackTrace();
+        }
+        
         initComponents();
         /*Fill in the form fields from the NFC*/
         setFields();
@@ -173,7 +182,7 @@ public class InitialFormGUI extends javax.swing.JFrame {
      * card to prep auto form-filling
      */
     
-    private static void readNFC() throws CardException, UnsupportedEncodingException {
+    private void readNFC() throws CardException, UnsupportedEncodingException {
         // show the list of available terminals
         TerminalFactory factory = TerminalFactory.getDefault();
         //List<CardTerminal> terminals = factory.terminals().list();
@@ -208,6 +217,7 @@ public class InitialFormGUI extends javax.swing.JFrame {
         System.out.println(hex.bytesToHex(byteMessage));
         System.out.println(hex.convertHexToString(hex.bytesToHex(byteMessage))); //Right here is where the byte response is converted to a string.
         
+        name = hex.convertHexToString(hex.bytesToHex(byteMessage));
         
         card.disconnect(false);
     }
@@ -261,14 +271,6 @@ public class InitialFormGUI extends javax.swing.JFrame {
               e.printStackTrace();
         }
         
-        /*Open the NFC device connection*/
-        try{
-        readNFC();
-        } catch(CardException ce){
-            ce.printStackTrace();
-        } catch(UnsupportedEncodingException uce){
-            uce.printStackTrace();
-        }
         
 
         /* Create and display the form */
