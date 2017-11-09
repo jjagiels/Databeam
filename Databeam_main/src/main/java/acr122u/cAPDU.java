@@ -22,7 +22,7 @@ public class cAPDU {
             (byte)0x00, (byte)0x00, (byte)0x00, (byte)0x00 };
 	
 	public static byte[] testHello = { (byte) 0x00, //Class
-            (byte) 0x01,//INS
+            (byte) 0x02,//INS
             (byte) 0x00, //P1
             (byte) 0x10};//P2 = Block number
             //(byte) 0x0}; // Lc = Number of bytes to update
