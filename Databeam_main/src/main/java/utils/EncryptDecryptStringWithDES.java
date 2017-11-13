@@ -1,5 +1,5 @@
 // File: src\jsbook\ch3\SymmetricCipherTest.java
-package main.java.utils;
+package utils;
 
 import javax.crypto.KeyGenerator;
 import javax.crypto.SecretKey;

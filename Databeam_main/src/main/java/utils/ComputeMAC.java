@@ -1,4 +1,4 @@
-package main.java.utils;
+package utils;
 // File: src\jsbook\ch3\ComputeMAC.java
 import javax.crypto.Mac;
 import javax.crypto.KeyGenerator;
