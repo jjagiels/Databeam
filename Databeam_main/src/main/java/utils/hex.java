@@ -27,7 +27,7 @@ public class hex {
                           StringBuilder temp = new StringBuilder();
 
                           //49204c6f7665204a617661 split into two characters 49, 20, 4c...
-                          for( int i=0; i<hex.length()-5; i+=2 ){
+                          for( int i=0; i<hex.length()-1; i+=2 ){
 
                               //grab the hex in pairs
                               String output = hex.substring(i, (i + 2));
