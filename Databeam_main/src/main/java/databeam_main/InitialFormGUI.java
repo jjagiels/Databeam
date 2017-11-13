@@ -210,7 +210,7 @@ public class InitialFormGUI extends javax.swing.JFrame {
         /**
          * This section will request the test hello from the smartcard applet
          */
-        r= channel.transmit(new CommandAPDU(cAPDU.testHello));
+        r= channel.transmit(new CommandAPDU(cAPDU.databeamTest));
         byteMessage = r.getBytes();
         System.out.println("response: " + r);
         System.out.println(Arrays.toString(byteMessage));
