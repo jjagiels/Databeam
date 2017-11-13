@@ -39,4 +39,12 @@ public class cAPDU {
             (byte)0xF0, (byte)0x00, (byte)0x00, (byte)0x00,
             (byte)0x01};
 	
+        public static byte[] selectDatabeam ={ (byte) 0x00, //Class
+            (byte) 0xA4,//INS
+            (byte) 0x04, //P1
+            (byte) 0x00, //P2 = Block number
+            (byte) 0x08, // Lc = Number of bytes to update
+            //Data to be written
+            (byte)0xF0, (byte)0x67, (byte)0xD8, (byte)0xA2,
+            (byte)0xF0, (byte)0x8C, (byte)0xE1, (byte)0x26};
 }

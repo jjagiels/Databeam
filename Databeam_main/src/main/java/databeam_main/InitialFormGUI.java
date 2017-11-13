@@ -197,7 +197,7 @@ public class InitialFormGUI extends javax.swing.JFrame {
         
         System.out.println("card: " + card);  
         CardChannel channel = card.getBasicChannel();
-        ResponseAPDU r = channel.transmit(new CommandAPDU(cAPDU.selectTestJavaApplet));
+        ResponseAPDU r = channel.transmit(new CommandAPDU(cAPDU.selectDatabeam));
         System.out.println("response: " + r);
         System.out.println(hex.bytesToHex(r.getBytes()));
         System.out.println(hex.convertHexToString(hex.bytesToHex(r.getBytes())));
@@ -260,16 +260,16 @@ public class InitialFormGUI extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Prep the Database connection */
-        try{
-            Class.forName(JDBC_DRIVER);
-            conn = DriverManager.getConnection(DB_URL,USER,PASS);
-        } catch(SQLException se){
-        //Handle JDBC Errors
-        se.printStackTrace();
-        }catch(Exception e){
-              //Handle errors for Class.forName
-              e.printStackTrace();
-        }
+//        try{
+//            Class.forName(JDBC_DRIVER);
+//            conn = DriverManager.getConnection(DB_URL,USER,PASS);
+//        } catch(SQLException se){
+//        //Handle JDBC Errors
+//        se.printStackTrace();
+//        }catch(Exception e){
+//              //Handle errors for Class.forName
+//              e.printStackTrace();
+//        }
         
         
 
