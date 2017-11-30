@@ -163,7 +163,7 @@ public class InitialFormGUI extends javax.swing.JFrame {
         nameScan.close();
         try{
         stmt = conn.createStatement();
-        stmt.executeUpdate("INSERT INTO names (firstname, middlename, lastname) value(" + nameEntry + ")");
+        stmt.executeUpdate("INSERT INTO names (firstName, middleName, lastName) value(" + nameEntry + ")");
         }catch(SQLException se){
             se.printStackTrace();
         }
