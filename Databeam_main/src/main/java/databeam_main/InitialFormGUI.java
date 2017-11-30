@@ -26,7 +26,7 @@ public class InitialFormGUI extends javax.swing.JFrame {
     //private static final String DB_URL = "jdbc:mysql://108.52.101.66:3306/databeam";
 
     private static final String JDBC_DRIVER = "com.mysql.jdbc.Driver";
-    private static final String DB_URL = "jdbc:mysql://108.52.101.66:3306/databeam";
+    private static final String DB_URL = "jdbc:mysql://108.52.101.66:3306/databeam"; //Check for IP changes in Database
     
     //Database Credentials
     private static final String USER = "sDesign2017";
@@ -163,7 +163,7 @@ public class InitialFormGUI extends javax.swing.JFrame {
         nameScan.close();
         try{
         stmt = conn.createStatement();
-        stmt.executeUpdate("INSERT INTO names (firstname, middlename, lastname) value(" + nameEntry + ")");
+        stmt.executeUpdate("INSERT INTO names (firstName, middleName, lastName) value(" + nameEntry + ")");
         }catch(SQLException se){
             se.printStackTrace();
         }
