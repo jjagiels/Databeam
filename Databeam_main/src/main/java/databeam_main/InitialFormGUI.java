@@ -176,6 +176,7 @@ public class InitialFormGUI extends javax.swing.JFrame {
         }catch(SQLException se){
             se.printStackTrace();
         }
+        acceptButton.setEnabled(false);
     }//GEN-LAST:event_acceptButtonActionPerformed
 
     private void firstNameFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_firstNameFieldActionPerformed
