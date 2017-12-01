@@ -27,6 +27,7 @@ public class InitialFormGUI extends javax.swing.JFrame {
 
     private static final String JDBC_DRIVER = "com.mysql.jdbc.Driver";
     private static final String DB_URL = "jdbc:mysql://108.52.101.66:3306/databeam"; //Check for IP changes in Database
+    //private static final String DB_URL = "jdbc:mysql://localhost/databeam";
     
     //Database Credentials
     private static final String USER = "sDesign2017";
@@ -51,7 +52,7 @@ public class InitialFormGUI extends javax.swing.JFrame {
             uce.printStackTrace();
         }
         
-        initComponents();
+            initComponents();
         /*Fill in the form fields from the NFC*/
         setFields();
     }
@@ -162,8 +163,16 @@ public class InitialFormGUI extends javax.swing.JFrame {
         tempNameEchoLabel.setText(nameScan.next() + " " + nameScan.next() + " " + nameScan.next());
         nameScan.close();
         try{
-        stmt = conn.createStatement();
-        stmt.executeUpdate("INSERT INTO names (firstName, middleName, lastName) value(" + nameEntry + ")");
+            String nameInsertString = "INSERT INTO names (firstName, middleName, lastName) value(?, ?, ?)";
+            PreparedStatement pstmt = conn.prepareStatement(nameInsertString);
+            //stmt.executeUpdate("INSERT INTO names (firstName, middleName, lastName) value(" + nameEntry + ")");
+            
+            pstmt.setNString(1, firstNameField.getText());
+            pstmt.setNString(2, middleNameField.getText());
+            pstmt.setNString(3, lastNameField.getText());
+            
+            pstmt.executeUpdate();
+            
         }catch(SQLException se){
             se.printStackTrace();
         }
@@ -265,16 +274,16 @@ public class InitialFormGUI extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Prep the Database connection */
-//        try{
-//            Class.forName(JDBC_DRIVER);
-//            conn = DriverManager.getConnection(DB_URL,USER,PASS);
-//        } catch(SQLException se){
-//        //Handle JDBC Errors
-//        se.printStackTrace();
-//        }catch(Exception e){
-//              //Handle errors for Class.forName
-//              e.printStackTrace();
-//        }
+        try{
+            Class.forName(JDBC_DRIVER);
+            conn = DriverManager.getConnection(DB_URL,USER,PASS);
+        } catch(SQLException se){
+        //Handle JDBC Errors
+        se.printStackTrace();
+        }catch(Exception e){
+              //Handle errors for Class.forName
+              e.printStackTrace();
+        }
         
         
 
