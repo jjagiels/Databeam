@@ -7,33 +7,13 @@ import java.io.ObjectInputStream;
 
 public class deSerialize {
 
-    public deSerialize() {
-    }
-
-    public Object DeSerialize(byte[] byteIn) {
+    public static Object DeSerialize(byte[] byteIn) throws IOException, ClassNotFoundException {
         ByteArrayInputStream bis = new ByteArrayInputStream(byteIn);
-        ObjectInput in = null;
+        ObjectInputStream ois = new LookAheadDeserializer(bis);
 
-        try{
-            in = new ObjectInputStream(bis);
-            Object o = in.readObject();
-            return o;
-        }catch(IOException e){
-            e.printStackTrace();
-            return null;
-        }catch(ClassNotFoundException e){
-            e.printStackTrace();
-            return null;
-        }
-        finally{
-            try{
-                if(in != null){
-                    in.close();
-                }
-            }catch(IOException e){
-                e.printStackTrace();
-            }
-
-        }
+        Object obj = ois.readObject();
+        ois.close();
+        bis.close();
+        return obj;
     }
 }

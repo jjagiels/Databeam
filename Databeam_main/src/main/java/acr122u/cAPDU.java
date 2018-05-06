@@ -56,4 +56,13 @@ public class cAPDU {
             //Data to be written
            // (byte)0x44, (byte)0x44, (byte)0x44,[] (byte)0x44,
             //(byte)0x44, (byte)0x44, (byte)0x44, (byte)0x44 };
+
+    public static byte[] requestData = { (byte) 0x00, //Class
+            (byte) 0x03,//INS
+            (byte) 0x00, //P1
+            (byte) 0x10};//P2 = Block number
+            //(byte) 0x0}; // Lc = Number of bytes to update
+            //Data to be written
+            // (byte)0x44, (byte)0x44, (byte)0x44,[] (byte)0x44,
+            //(byte)0x44, (byte)0x44, (byte)0x44, (byte)0x44 };
 }
