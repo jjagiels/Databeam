@@ -35,7 +35,7 @@ public class connectNFC {
 
         CardTerminals terminals = factory.terminals();
 
-        Card card = connectNFC.waitForCard(terminals);
+        Card card = waitForCard(terminals);
         card.beginExclusive();
 
         CardChannel channel = card.getBasicChannel();
