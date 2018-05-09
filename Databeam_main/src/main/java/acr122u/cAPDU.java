@@ -47,6 +47,9 @@ public class cAPDU {
             //Data to be written
             (byte)0xF0, (byte)0x67, (byte)0xD8, (byte)0xA2,
             (byte)0xF0, (byte)0x8C, (byte)0xE1, (byte)0x26};
+
+        public static byte[] AID = {(byte)0xF0, (byte)0x67, (byte)0xD8, (byte)0xA2,
+                (byte)0xF0, (byte)0x8C, (byte)0xE1, (byte)0x26};
         
         public static byte[] databeamTest = { (byte) 0x00, //Class
             (byte) 0x02,//INS
@@ -60,8 +63,8 @@ public class cAPDU {
     public static byte[] requestData = { (byte) 0x00, //Class
             (byte) 0x03,//INS
             (byte) 0x00, //P1
-            (byte) 0x10};//P2 = Block number
-            //(byte) 0x0}; // Lc = Number of bytes to update
+            (byte) 0x00}; //P2 = Block number
+            //(byte) 0x00}; // Lc = Number of bytes to update
             //Data to be written
             // (byte)0x44, (byte)0x44, (byte)0x44,[] (byte)0x44,
             //(byte)0x44, (byte)0x44, (byte)0x44, (byte)0x44 };

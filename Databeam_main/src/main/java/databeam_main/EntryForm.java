@@ -6,6 +6,8 @@ import javax.smartcardio.CardException;
 import javax.swing.*;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
+
+import dataClasses.directDeposit;
 import utils.*;
 
 public class EntryForm {
@@ -26,7 +28,23 @@ public class EntryForm {
         frame.pack();
         frame.setVisible(true);
 
-       /* try{ //Temporarily remove NFC in order to test the functionality of the forms
+
+        directDeposit DD = new directDeposit();
+
+        DD.setFirstName("Matthew");
+        DD.setMiddleName("");
+        DD.setLastName("Mott");
+
+        DD.setAddress("123 College Ave.");
+        DD.setCity("Newark");
+        DD.setState("Delaware");
+        DD.setZipCode("19717");
+
+        DD.setSaveAcct("123");
+        DD.setCheckOrSaving(true);
+        DD.setRoutNum("12345");
+
+       /*try{
             input = connectNFC.readNFC();
         } catch(CardException ce){
             ce.printStackTrace();
@@ -34,31 +52,17 @@ public class EntryForm {
             uce.printStackTrace();
         } */
 
-       dataClasses.directDeposit depo = new dataClasses.directDeposit();
-
-       depo.setFirstName("Justin");
-       depo.setMiddleName("Richard");
-       depo.setLastName("Jagielski");
-
-       depo.setAddress("123 Some Rd.");
-       depo.setCity("Location");
-       depo.setState("Delaware");
-       depo.setZipCode("12345");
-
-       depo.setCheckOrSaving(true);
-       depo.setSaveAcct("123456789");
-       depo.setRoutNum("987654321");
-
-        try{
+        /*try{
             inputObject = deSerialize.DeSerialize(input);
         }catch (IOException e) {
             System.out.println("Error Initializing stream");
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
-        }
+        }*/
 
         frame.dispose();
-        selectClass.select(inputObject);
+        //selectClass.select(inputObject);
+        selectClass.select(DD);
 
     }
 }
