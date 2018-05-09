@@ -41,6 +41,7 @@ public class directDeposit {
     public directDeposit(dataClasses.directDeposit obj) {
 
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setContentPane(contentPane);
         frame.pack();
         frame.setVisible(true);
 
