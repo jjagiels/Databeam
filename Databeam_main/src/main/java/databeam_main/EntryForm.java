@@ -26,13 +26,28 @@ public class EntryForm {
         frame.pack();
         frame.setVisible(true);
 
-        try{
+       /* try{ //Temporarily remove NFC in order to test the functionality of the forms
             input = connectNFC.readNFC();
         } catch(CardException ce){
             ce.printStackTrace();
         } catch(UnsupportedEncodingException uce){
             uce.printStackTrace();
-        }
+        } */
+
+       dataClasses.directDeposit depo = new dataClasses.directDeposit();
+
+       depo.setFirstName("Justin");
+       depo.setMiddleName("Richard");
+       depo.setLastName("Jagielski");
+
+       depo.setAddress("123 Some Rd.");
+       depo.setCity("Location");
+       depo.setState("Delaware");
+       depo.setZipCode("12345");
+
+       depo.setCheckOrSaving(true);
+       depo.setSaveAcct("123456789");
+       depo.setRoutNum("987654321");
 
         try{
             inputObject = deSerialize.DeSerialize(input);
